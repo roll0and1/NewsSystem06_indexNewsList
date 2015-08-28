@@ -73,6 +73,7 @@ public class LoginServlet extends HttpServlet {
 				// 初始化Userservice
 				UserService userService = new UserService();
 				userId = userService.login(name, password);
+				System.out.println(userId);
 
 				if (userId > 0) {
 					// 登录成功
@@ -82,8 +83,19 @@ public class LoginServlet extends HttpServlet {
 					// 将用户Id和用户名保存到session中
 					session.setAttribute("userId", userId);
 					session.setAttribute("name", name);
-					// 重定向到用户页面
-					response.sendRedirect("newUser.jsp");
+//					声明角色
+					int role=-1;
+//					从数据库获取用户的role
+					role=userService.getRole(userId);
+					System.out.println(role);
+//					根据用户角色的不同进行重定向
+					if(role==1){
+//						重定向到admin
+						response.sendRedirect("toAdmin");
+					}else {
+//						重定向到editor
+						response.sendRedirect("toEditor");
+					}
 				} else {
 					// 登录失败跳转到登录页面
 					message = "用户名或密码错误！";
