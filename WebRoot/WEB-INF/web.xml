@@ -24,6 +24,11 @@
     <servlet-name>CreateNews</servlet-name>
     <servlet-class>com.qiangge.web.CreateNews</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>com.qiangge.web.IndexServlet</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -49,5 +54,9 @@
   <servlet-mapping>
     <servlet-name>CreateNews</servlet-name>
     <url-pattern>/createNews</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index</url-pattern>
   </servlet-mapping>
 </web-app>

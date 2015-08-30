@@ -1,5 +1,7 @@
 package com.qiangge.service;
 
+import java.util.List;
+
 import com.qiangge.dao.NewsDao;
 import com.qiangge.dao.impl.NewsDaoImpl;
 import com.qiangge.model.News;
@@ -18,5 +20,11 @@ public class NewsService {
 		boolean flag = false;
 		flag = newsDao.add(news);
 		return flag;
+	}
+
+	public List<News> getList(int satate) throws AppException {
+		List<News> list = null;
+		list = newsDao.getList(satate);
+		return list;
 	}
 }
