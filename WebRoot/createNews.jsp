@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.qiangge.model.News"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -50,19 +52,26 @@
 
 <body>
 	<!--  新闻表单   -->
+	<%
+		News news = new News();
+		if (request.getAttribute("news") != null) {
+			news = (News) request.getAttribute("news");
+		}
+	%>
 	<form id="createNewsform" name="createNewsform" method="post"
-		action="">
+		action="createNews">
 		<table>
 			<tr bgcolor="#E7E7E7">
 				<td height="24" colspan="10">&nbsp;创建新闻&nbsp;</td>
 			</tr>
 			<tr>
 				<td class="td">标题：</td>
-				<td><input type="text" name="title" id="title" size="60" /></td>
+				<td><input type="text" name="title" id="title" size="60"
+					value="<%=news.getTitle()%> " /></td>
 			</tr>
 			<tr>
 				<td class="td">栏目：</td>
-				<td><select id="newsTypeId">
+				<td><select id="newsTypeId" name="newsTypeId">
 						<option value="0">请选择栏目</option>
 						<option value="1">国际新闻</option>
 						<option value="2">国内新闻</option>
@@ -75,30 +84,49 @@
 			</tr>
 			<tr>
 				<td class="td">来源：</td>
-				<td><input type="text" name="source" id="source" /></td>
+				<td><input type="text" name="source" id="source"
+					value="<%=news.getSource()%>" /></td>
 			</tr>
 			<tr>
 				<td class="td">作者：</td>
-				<td><input type="text" name="author" id="author" /></td>
+				<td><input type="text" name="author" id="author"
+					value="<%=news.getAuthor()%>" /></td>
 			</tr>
 			<tr>
 				<td class="td">创建时间：</td>
-				<td><input type="text" name="createTime" id="createTime" /></td>
+				<%
+					Date date = new Date();
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				%>
+				<td><input type="text" name="createTime" id="createTime"
+					value="<%=df.format(date)%>" /></td>
 			</tr>
 			<tr>
 				<td class="td">关键字：</td>
-				<td><input type="text" name="keywords" id="keywords" size="60" />
-				</td>
+				<td><input type="text" name="keywords" id="keywords" size="60"
+					value="<%=news.getKeywords()%>" /></td>
 			</tr>
 			<tr>
 				<td class="td">内容：</td>
 				<td><textarea id="content" name="content"
-						style="width:600px; height:230px;"></textarea></td>
+						style="width:600px; height:230px;" value="<%=news.getContent()%>"></textarea></td>
 			</tr>
 			<tr>
 				<td class="td">附件：</td>
 				<td><input type="file" /></td>
 			</tr>
+			<%
+				String message = (String) request.getAttribute("message");
+				if (message != null) {
+			%>
+			<tr>
+				<td align="center" id="message"><%=message%></td>
+			</tr>
+
+			<%
+				}
+			%>
+
 			<tr align="center">
 				<td colspan="2"><input type="submit" value="提交" class="button"
 					onclick="return check()" /> <input type="reset" value="重置"
